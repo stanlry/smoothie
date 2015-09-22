@@ -511,7 +511,8 @@
     if (chartOptions.maxValue != null) {
       chartMaxValue = chartOptions.maxValue;
     } else {
-      chartMaxValue *= chartOptions.maxValueScale;
+      chartMaxValue += Math.abs(chartMaxValue * chartOptions.maxValueScale - chartMaxValue);
+      if(chartMaxValue === 0) chartMaxValue = 1;
     }
 
     // Set the minimum if we've specified one
@@ -519,6 +520,7 @@
       chartMinValue = chartOptions.minValue;
     } else {
       chartMinValue -= Math.abs(chartMinValue * chartOptions.minValueScale - chartMinValue);
+      if(chartMinValue === 0) chartMinValue = -1;
     }
 
     // If a custom range function is set, call it
